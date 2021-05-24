@@ -16,12 +16,13 @@ PROFILE_MATCH_CHOICES = (
 
 class Profile(models.Model):
 
-    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, unique=True)
+    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
     location = models.PointField()
     email = models.CharField(max_length=100)
     gender = models.IntegerField(choices=GENDER_CHOICES)
     profile_photo = models.ImageField(upload_to='profile_images')
+    flipped_profile_photo = models.ImageField(upload_to='flipped_profile_images')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now=True, editable=False, null=False, blank=False) #` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     updated_at = models.DateTimeField(default=now) #` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
