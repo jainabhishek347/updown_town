@@ -10,11 +10,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializerCommon(serializers.ModelSerializer):
     profile_photo = serializers.ImageField()
-    user_id = UserSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)
     class Meta:
         model = Profile
         geo_field = "location"
-        fields = ["full_name", 'gender', 'location', 'profile_photo','user_id']
+        fields = ["full_name", 'gender', 'location', 'profile_photo','user']
 
 
 class ProfileMatchSerializer(serializers.ModelSerializer):

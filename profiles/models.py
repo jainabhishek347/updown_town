@@ -16,7 +16,7 @@ PROFILE_MATCH_CHOICES = (
 
 class Profile(models.Model):
 
-    user_id = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=100)
     location = models.PointField()
     email = models.CharField(max_length=100)
