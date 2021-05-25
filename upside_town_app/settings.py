@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a7ive8e#=b1gm0e$o1yqdg!c=)2u)z_f3w%9y+gysql&7#5#k5'
+SECRET_KEY = env('SECRET_KEY', 'django-insecure-a7ive8e#=b1gm0e$o1yqdg!c=)2u)z_f3w%9y+gysql&7#5#k5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_gis',
     #'rest_framework_swagger',
     'profiles',
@@ -92,10 +97,10 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.postgresql',
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'test_db1',
-        'USER': 'test_user',
-        'PASSWORD': 'Welcome123',
-        'HOST': 'postgresql',
+        'NAME': env('DATABASE_NAME', 'test_db1'),
+        'USER': env('DATABASE_USER', 'test_user'),
+        'PASSWORD': env('DATABASE_PASS', 'Welcome123'),
+        'HOST': env('DATABASE_HOST', 'postgresql'),
         'PORT': 5432,
     }
 }
@@ -118,6 +123,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -151,8 +168,8 @@ VENV_PATH = os.path.dirname(BASE_DIR)
 
 STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 
+
 MEDIA_URL = '/media/'
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }

@@ -39,6 +39,9 @@ The world needs another dating app! But it needs a twist...more like a flip actu
 ## Instructions
 
 * Clone the repo to your local machine
+  
+* Create .env file based on .env_template with all credentials.
+  
 * Install docker and  run below commands :
   
       docker-compose build
