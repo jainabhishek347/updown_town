@@ -20,7 +20,7 @@ services:
        # - ./logs:/logs
   web:
     build: .
-    command: sh start.sh
+    command: .
     volumes:
       - .:/code
     ports:
