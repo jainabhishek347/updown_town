@@ -1,10 +1,12 @@
-## Create a dating API using Python and Django
+## Create a backend system for dating APP using Python and Django
 
 ## Project summary
 
 The world needs another dating app! But it needs a twist...more like a flip actually! On Upside Town everyones photos are upside down. Your task is to write an API for a tinder-like dating app called Upside Town, that allows people to upload a photo, which then gets flipped upside down on the server, view others flipped photos, match them, and share each others contact information if the match is two-sided.
+
 ## Project architecture
 
+![design_document](images/Updown_Town_design_document.png?raw=true)
 
 ### Tasks
 
@@ -37,7 +39,7 @@ The world needs another dating app! But it needs a twist...more like a flip actu
 ## Instructions
 
 * Clone the repo to your local machine
-* Install docker and  run elow commands :
+* Install docker and  run below commands :
   docker-compose build
   docker-compose up 
 
@@ -70,21 +72,4 @@ If you don't have any other docker containers running, you can shut down the one
 Optionally, you can clean up docker images downloaded locally by rinning:
 
     docker system prune
-
-
-pip install django djangorestframework
-
-python manage.py startapp customer
-python manage.py startapp upside_town_app
-
-==========
-
-sudo docker-compose run web django-admin startproject composeexample .
-docker-compose run web python manage.py migrate
-
-docker-compose run web python manage.py startapp profiles  
-
-https://pypi.org/project/djangorestframework-gis/
-
-docker rm -f -v postgresql 
 
