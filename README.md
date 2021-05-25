@@ -4,7 +4,7 @@
 
 The world needs another dating app! But it needs a twist...more like a flip actually! On Upside Town everyones photos are upside down. Your task is to write an API for a tinder-like dating app called Upside Town, that allows people to upload a photo, which then gets flipped upside down on the server, view others flipped photos, match them, and share each others contact information if the match is two-sided.
 
-## Project architecture
+## Proposer architecture for production system. (Not implemented currently)
 
 ![design_document](images/Updown_Town_design_document.png?raw=true)
 
@@ -40,25 +40,30 @@ The world needs another dating app! But it needs a twist...more like a flip actu
 
 * Clone the repo to your local machine
 * Install docker and  run below commands :
-  docker-compose build
-  docker-compose up 
+  
+      docker-compose build
+  
+      docker-compose up 
 
 * Wait a few minutes for the services to start up.  
-  docker-compose run web sh start.sh
+  
+      docker-compose run web sh start.sh
   
 * Wait a few minutes for the services to start up. You can view logs outputs using:
-    docker-compose -f docker-compose.yml logs -f
+    
+      docker-compose -f docker-compose.yml logs -f
 
 ## admin UI : 
  * http://localhost:8000/
  
- ![adminui](images/kafdrop.png?raw=true)
+ ![adminui](images/add_profile_at_admin_panel.png?raw=true)
 
 ## Rest API: 
  * http://localhost:8000
  
- ![kafka control center](images/kafka-control-center.png?raw=true)
+ ![list_api_request](images/list_rest_api.png?raw=true)
 
+ ![create_api_request](images/create_profile_post_api.png?raw=true)
 
 ## Print Postgres DB queries in logs for deugging
 
@@ -73,3 +78,9 @@ Optionally, you can clean up docker images downloaded locally by rinning:
 
     docker system prune
 
+## TODO: To make it runnable in to production we can add below feature.
+1: CI/CD using git/Jenkins implementation 
+2: Unit test cases using pytest module.
+3: Feature test cases using behave framewwork
+4: JWT token based authentication/2-factor authentication to make it secure.
+5: Deployent using Apache

@@ -9,15 +9,15 @@ services:
       POSTGRES_PASSWORD: Welcome123
       POSTGRES_USER: test_user
       POSTGRES_DB: test_db1
-#    command: >
-#      -c work_mem=256MB
-#      -c maintenance_work_mem=256MB
-#      -c max_wal_size=1GB
+     command: >
+      -c work_mem=256MB
+      -c maintenance_work_mem=256MB
+      -c max_wal_size=1GB
     ports:
       - "5435:5432"
     #volumes:
        # Persist the data between container invocations
-    #   - ./logs:/logs
+       # - ./logs:/logs
   web:
     build: .
     command: sh start.sh
