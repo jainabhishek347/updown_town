@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a7ive8e#=b1gm0e$o1yqdg!c=)2u)z_f3w%9y+gysql&7#5#k5'
+SECRET_KEY = env('SECRET_KEY', 'django-insecure-a7ive8e#=b1gm0e$o1yqdg!c=)2u)z_f3w%9y+gysql&7#5#k5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -93,10 +97,10 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.postgresql',
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'test_db1',
-        'USER': 'test_user',
-        'PASSWORD': 'Welcome123',
-        'HOST': 'postgresql',
+        'NAME': env('DATABASE_NAME', 'test_db1'),
+        'USER': env('DATABASE_USER', 'test_user'),
+        'PASSWORD': env('DATABASE_PASS', 'Welcome123'),
+        'HOST': env('DATABASE_HOST', 'postgresql'),
         'PORT': 5432,
     }
 }

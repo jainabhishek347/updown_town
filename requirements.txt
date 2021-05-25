@@ -11,3 +11,4 @@ djangorestframework-gis
 django-rest-swagger
 django-extra-fields
 drf_extra_fields
+django-environ
