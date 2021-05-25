@@ -1,16 +1,18 @@
 from django.urls import include
+from django.conf.urls import url
 from django.urls import path
 from profiles import views
 
 from rest_framework import routers
 router = routers.DefaultRouter()
-#router.register(r'', views.ProfileViewSet)
+router.register(r'create', views.CreateProfileViewSet, basename='create')
+router.register(r'list', views.ListProfileViewSet, basename='list')
+router.register(r'match', views.MatchProfileViewSet, basename='match')
+#router.register(r'users', views.UserViewSet, basename='user')
 
 urlpatterns = [
-    path("list/", views.ListProfileAPIView.as_view(),name="profile_list"),
-    path("create/", views.CreateProfileAPIView.as_view(),name="profile_create"),
-    path("match/", views.MatchProfileAPIView.as_view(),name="profile_match"),
-    #path("", include(router.urls)),
+    url('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 # path("",views.ListTodoAPIView.as_view(),name="todo_list"),

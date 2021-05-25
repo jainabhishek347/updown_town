@@ -14,7 +14,15 @@ PROFILE_MATCH_CHOICES = (
     ('Matched', 'matched'),
 )
 
-class Profile(models.Model):
+class TimeStampedModel(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True, null= True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null= True, blank=True)
+
+    class Meta:
+        abstract = True
+    
+
+class Profile(TimeStampedModel):
 
     user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
@@ -22,28 +30,24 @@ class Profile(models.Model):
     email = models.CharField(max_length=100)
     gender = models.IntegerField(choices=GENDER_CHOICES)
     profile_photo = models.ImageField(upload_to='profile_images')
-    flipped_profile_photo = models.ImageField(upload_to='flipped_profile_images')
+    #flipped_profile_photo = models.ImageField(upload_to='flipped_profile_images')
     is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now=True, editable=False, null=False, blank=False) #` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    updated_at = models.DateTimeField(default=now) #` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    match=models.ManyToManyField('self', through='ProfileMatch', symmetrical=False)
 
     class Meta:
-        db_table = "profiles"
+        db_table = "Profiles"
 
     def __str___(self):
         return self.full_name
 
-class ProfileMatch(models.Model):
-
-    requested_profile = models.ForeignKey(Profile, null=False, on_delete=models.CASCADE, related_name='requested_profile')
-    match_profile = models.ForeignKey(Profile, null=False, on_delete=models.CASCADE, related_name='match_profile')
-    match_status = models.CharField(max_length=100, choices=PROFILE_MATCH_CHOICES)
-    created_at = models.DateTimeField(auto_now=True, editable=False, null=False, blank=False) #` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    updated_at = models.DateTimeField(default=now) #` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-
+class ProfileMatch(TimeStampedModel):
+    user1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="user1")
+    user2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="user2")
+    match_status = models.BooleanField(default=False)
 
     class Meta:
+        unique_together = ('user1', 'user2',)
         db_table = "profile_matches"
 
     def __str___(self):
-        return self.full_name
+        return self.user1.full_name,self.user2.full_name

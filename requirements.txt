@@ -9,3 +9,5 @@ django-filter
 dj.choices
 djangorestframework-gis
 django-rest-swagger
+django-extra-fields
+drf_extra_fields

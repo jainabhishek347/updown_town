@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_gis',
     #'rest_framework_swagger',
     'profiles',
@@ -118,6 +119,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -151,8 +164,8 @@ VENV_PATH = os.path.dirname(BASE_DIR)
 
 STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 
+
 MEDIA_URL = '/media/'
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
