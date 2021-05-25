@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: Welcome123
       POSTGRES_USER: test_user
       POSTGRES_DB: test_db1
-     command: >
+    command: >
       -c work_mem=256MB
       -c maintenance_work_mem=256MB
       -c max_wal_size=1GB
