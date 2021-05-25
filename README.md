@@ -79,8 +79,12 @@ Optionally, you can clean up docker images downloaded locally by rinning:
     docker system prune
 
 ## TODO: To make it runnable in to production we can add below feature.
-1: CI/CD using git/Jenkins implementation 
-2: Unit test cases using pytest module.
-3: Feature test cases using behave framewwork
-4: JWT token based authentication/2-factor authentication to make it secure.
-5: Deployent using Apache
+  1: CI/CD using git/Jenkins implementation
+
+  2: Unit test cases using pytest module.
+
+  3: Feature test cases using behave framewwork
+
+  4: JWT token based authentication/2-factor authentication to make it secure.
+
+  5: Deployent using Apache
